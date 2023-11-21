@@ -50,24 +50,30 @@ def save_dataframe_with_space(wb, df, filename, space):
 
     wb.save(filename=f"seperated_{filename}")
 
-filenames = get_filenames_in(path="./", file_extension="xlsx")
+def main():
+    filenames = get_filenames_in(path="./", file_extension="xlsx")
 
-print("------------ 변환할 xlsx 파일 목록 -----------")
-for filename in filenames:
-    print(f"- {filename}")
-print("----------------------------------------------")
-space = input("공백라인 수 입력후 Enter를 쳐주세요 (미입력시 3개) : ")
-if space == "":
-    space = 3
+    print("------------ 변환할 xlsx 파일 목록 -----------")
+    for filename in filenames:
+        print(f"- {filename}")
+    print("----------------------------------------------")
+    space = input("공백라인 수 입력후 Enter를 쳐주세요 (미입력시 3개) : ")
+    if space == "":
+        space = 3
 
-print(f"공백라인 수 {space} 개로 작업 시작합니다!")
+    print(f"공백라인 수 {space} 개로 작업 시작합니다!")
 
-for filename in filenames:
-    print(f"\r{filename} 처리중...")
-    wb = openpyxl.load_workbook(filename=filename)
-    df = convert2dataframe(wb)
-    save_dataframe_with_space(wb, df, filename, space=space)
-    wb.close()
-    print(f"\r{filename} 완료                              ")
+    for filename in filenames:
+        print(f"\r{filename} 처리중...")
+        wb = openpyxl.load_workbook(filename=filename)
+        df = convert2dataframe(wb)
+        save_dataframe_with_space(wb, df, filename, space=space)
+        wb.close()
+        print(f"\r{filename} 완료                              ")
 
-webbrowser.open("https://coding-hwangsawon.tistory.com/3")
+    webbrowser.open("https://coding-hwangsawon.tistory.com/3")
+
+try:
+    main()
+except Exception as err:
+    print(f"Unexpected {err=}, {type(err)=}")
