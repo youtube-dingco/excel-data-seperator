@@ -76,7 +76,10 @@ def main():
 try:
     main()
 except Exception as err:
-    print(f"Unexpected {err=}, {type(err)=}")
+    print("")
+    print("에러발생")
+    print(f"Unexpected {err}, {type(err)}")
+    print("")
 
 # To protect exit()
 input()
