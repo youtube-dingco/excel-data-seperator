@@ -6,3 +6,9 @@
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
+
+## 빌드
+
+```bash
+pyinstaller –onefile main.py
+```
