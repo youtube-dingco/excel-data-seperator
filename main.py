@@ -58,6 +58,7 @@ def main():
         print(f"- {filename}")
     print("----------------------------------------------")
     space = input("공백라인 수 입력후 Enter를 쳐주세요 (미입력시 3개) : ")
+    space = int(space)
     if space == "":
         space = 3
 
