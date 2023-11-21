@@ -7,7 +7,7 @@ from copy import copy
 def get_filenames_in(path, file_extension=None):
     filenames = os.listdir(path)
     if file_extension:
-        filenames = [filename for filename in filenames if filename.endswith(file_extension)]
+        filenames = [filename for filename in filenames if filename.endswith(file_extension) and not filename.startswith("seperated_")]
     return filenames
 
 def convert2dataframe(wb):
@@ -21,7 +21,7 @@ def get_date_from_timestamp(timestamp):
     return datetime.strptime(str(timestamp), "%Y-%m-%d %H:%M:%S").date()
 
 def replace_row_with(values, ws, rowidx, first_cells):
-    print(f"Writing {rowidx} {values}...")
+    print(f"\rWriting {rowidx} {values[0]}", end="")
     for idx, value in enumerate(values):
         ws.cell(row=rowidx, column=idx+1).font = copy(first_cells[idx].font)
         ws.cell(row=rowidx, column=idx+1).border = copy(first_cells[idx].border)
@@ -50,9 +50,11 @@ def save_dataframe_with_space(wb, df, filename, space):
     wb.save(filename=f"seperated_{filename}")    
 
 file_names = get_filenames_in(path="./", file_extension="xlsx")
-filename = file_names[0]
-wb = openpyxl.load_workbook(filename=filename)
-df = convert2dataframe(wb)
-save_dataframe_with_space(wb, df, filename, space=3)
-wb.close()
+for filename in file_names:
+    print(f"\r{filename} 처리중...")
+    wb = openpyxl.load_workbook(filename=filename)
+    df = convert2dataframe(wb)
+    save_dataframe_with_space(wb, df, filename, space=3)
+    wb.close()
+    print(f"\r{filename} 완료                              ")
 
