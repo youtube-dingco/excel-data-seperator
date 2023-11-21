@@ -51,7 +51,7 @@ def save_dataframe_with_space(wb, df, filename, space):
     wb.save(filename=f"seperated_{filename}")
 
 filenames = get_filenames_in(path="./", file_extension="xlsx")
-print("변환할 xlsx 파일 목록")
+
 print("------------ 변환할 xlsx 파일 목록 -----------")
 for filename in filenames:
     print(f"- {filename}")
