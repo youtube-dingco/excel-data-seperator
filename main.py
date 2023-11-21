@@ -3,6 +3,7 @@ import openpyxl
 import pandas as pd
 from datetime import datetime
 from copy import copy
+import webbrowser
 
 def get_filenames_in(path, file_extension=None):
     filenames = os.listdir(path)
@@ -47,14 +48,26 @@ def save_dataframe_with_space(wb, df, filename, space):
         replace_row_with(row.tolist(), ws, rowidx, first_cells)
         rowidx += 1
 
-    wb.save(filename=f"seperated_{filename}")    
+    wb.save(filename=f"seperated_{filename}")
 
-file_names = get_filenames_in(path="./", file_extension="xlsx")
-for filename in file_names:
+filenames = get_filenames_in(path="./", file_extension="xlsx")
+print("변환할 xlsx 파일 목록")
+print("------------ 변환할 xlsx 파일 목록 -----------")
+for filename in filenames:
+    print(f"- {filename}")
+print("----------------------------------------------")
+space = input("공백라인 수 입력후 Enter를 쳐주세요 (미입력시 3개) : ")
+if space == "":
+    space = 3
+
+print(f"공백라인 수 {space} 개로 작업 시작합니다!")
+
+for filename in filenames:
     print(f"\r{filename} 처리중...")
     wb = openpyxl.load_workbook(filename=filename)
     df = convert2dataframe(wb)
-    save_dataframe_with_space(wb, df, filename, space=3)
+    save_dataframe_with_space(wb, df, filename, space=space)
     wb.close()
     print(f"\r{filename} 완료                              ")
 
+webbrowser.open("https://coding-hwangsawon.tistory.com/3")
