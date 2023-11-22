@@ -10,5 +10,5 @@ python -m venv .venv
 ## 빌드
 
 ```bash
-pyinstaller --onefile main.py --name excel-data-seperator.exe
+pyinstaller --onefile main.py --name excel-data-separator.exe
 ```
